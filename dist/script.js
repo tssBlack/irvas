@@ -13827,7 +13827,7 @@ const tabs = (headerSelector, tabSelector, contentSelector, activeClass) => {
   }
   header.addEventListener('click', e => {
     const target = e.target;
-    if (target.classList.contains(tabSelector.replace(/^\./, '')) || target.parentNode.classList.contains(tabSelector.replace(/^\./, ''))) {
+    if (target && (target.classList.contains(tabSelector.replace(/^\./, '')) || target.parentNode.classList.contains(tabSelector.replace(/^\./, '')))) {
       tab.forEach((item, i) => {
         if (target == item || target.parentNode == item) {
           hideTabContent();
@@ -14012,7 +14012,8 @@ __webpack_require__.r(__webpack_exports__);
 
 window.addEventListener('DOMContentLoaded', () => {
   (0,_modules_modals__WEBPACK_IMPORTED_MODULE_1__["default"])();
-  (0,_modules_tabs__WEBPACK_IMPORTED_MODULE_2__["default"])();
+  (0,_modules_tabs__WEBPACK_IMPORTED_MODULE_2__["default"])('.glazing_slider', '.glazing_block', '.glazing_content', 'active');
+  (0,_modules_tabs__WEBPACK_IMPORTED_MODULE_2__["default"])('.decoration_slider', '.no_click', '.decoration_content > div > div', 'after_click');
 });
 })();
 
