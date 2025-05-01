@@ -13759,20 +13759,73 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+/* harmony import */ var _checkNumIputs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./checkNumIputs */ "./src/js/modules/checkNumIputs.js");
+
 const changeModalState = state => {
   const windowForm = document.querySelectorAll('.balcon_icons_img'),
-    windowWidth = document.querySelector('#width'),
-    windowHeight = document.querySelector('#height'),
-    windowType = document.querySelector('#view_type'),
-    windowProfile = document.querySelector('.checkBox');
-  windowForm.forEach((item, i) => {
-    item.addEventListener('click', () => {
-      state.form = i;
-      console.log(state);
+    windowWidth = document.querySelectorAll('#width'),
+    windowHeight = document.querySelectorAll('#height'),
+    windowType = document.querySelectorAll('#view_type'),
+    windowProfile = document.querySelectorAll('.checkBox');
+  (0,_checkNumIputs__WEBPACK_IMPORTED_MODULE_0__["default"])('#height');
+  (0,_checkNumIputs__WEBPACK_IMPORTED_MODULE_0__["default"])('#width');
+  function bindActionToElems(event, elem, prop) {
+    elem.forEach((item, i) => {
+      item.addEventListener(event, () => {
+        switch (item.nodaName) {
+          case 'SPAN':
+            state[prop] = i;
+            break;
+          case 'INPUT':
+            if (item.getAttribute('type') === 'checkbox') {
+              i === 0 ? state[prop] = "Холодное" : state[prop] = "Тёплое";
+              elem.forEach((box, j) => {
+                box.checked = false;
+                if (i == j) {
+                  box.checked = true;
+                }
+              });
+            } else {
+              state[prop] = item.value;
+            }
+            break;
+          case 'SELECT':
+            state[prop] = item.value;
+            break;
+        }
+      });
+    });
+  }
+  bindActionToElems('click', windowForm, 'form');
+  bindActionToElems('input', windowHeight, 'height');
+  bindActionToElems('input', windowWidth, 'width');
+  bindActionToElems('change', windowType, 'type');
+  bindActionToElems('change', windowProfile, 'profie');
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (changeModalState);
+
+/***/ }),
+
+/***/ "./src/js/modules/checkNumIputs.js":
+/*!*****************************************!*\
+  !*** ./src/js/modules/checkNumIputs.js ***!
+  \*****************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+const checkNumInputs = selector => {
+  const inputs = document.querySelectorAll(selector);
+  inputs.forEach(item => {
+    item.addEventListener("input", () => {
+      item.value = item.value.replace(/[^\d]/g, "");
     });
   });
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (changeModalState);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (checkNumInputs);
 
 /***/ }),
 
@@ -13866,6 +13919,8 @@ const tabs = (headerSelector, tabSelector, contentSelector, activeClass, display
     content[i].style.display = display;
     tab[i].classList.add(activeClass);
   }
+  hideTabContent();
+  showTabContent();
   header.addEventListener('click', e => {
     const target = e.target;
     if (target && (target.classList.contains(tabSelector.replace(/^\./, '')) || target.parentNode.classList.contains(tabSelector.replace(/^\./, '')))) {
@@ -14061,7 +14116,7 @@ window.addEventListener('DOMContentLoaded', () => {
   (0,_modules_tabs__WEBPACK_IMPORTED_MODULE_2__["default"])('.glazing_slider', '.glazing_block', '.glazing_content', 'active');
   (0,_modules_tabs__WEBPACK_IMPORTED_MODULE_2__["default"])('.decoration_slider', '.no_click', '.decoration_content > div > div', 'after_click');
   (0,_modules_tabs__WEBPACK_IMPORTED_MODULE_2__["default"])('.balcon_icons', '.balcon_icons_img', '.big_img > img', 'do_image_more', 'inline-block');
-  // forms();
+  // forms(modalState);
 });
 })();
 
