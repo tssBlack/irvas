@@ -1,8 +1,12 @@
 // import { set } from "core-js/core/dict"
-
+// import checkNumInputs from "./checkNumIputs";
 // const forms = () => {
 //     const form = document.querySelectorAll('form'),
-//         inputs = document.querySelectorAll('input')
+//         inputs = document.querySelectorAll('input'),
+//         phoneInputs = document.querySelectorAll('input[name = "user_phone"]');
+
+
+//     checkNumInputs(phoneInputs)
     
 //     const message = {
 //         loading:'Загрузка...',
